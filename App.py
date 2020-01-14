@@ -11,10 +11,10 @@ UI_Name = "App.ui"
 form_class = uic.loadUiType(UI_Name)[0]
 
 _image_data = 0
-_train_images
-_train_labels
-_test_images
-_test_labels
+_train_images = 0
+_train_labels = 0
+_test_images = 0
+_test_labels = 0
 
 class WindowClass(QMainWindow, form_class):
 
@@ -50,23 +50,36 @@ class WindowClass(QMainWindow, form_class):
 
     def loadTrainImageData_buttonFunction(self):
         f_path = QFileDialog.getOpenFileName(self)
-        with open(f_path + '/train-images-idx3-ubyte.gz', 'rb') as f
-        train_images = extract_images(f)
+        path = f_path[0]
+        print(path)
+        with open(path, 'rb') as f:
+            train_images = extract_images(f)
+        TRAINING_SIZE = len(train_images)
+        print(TRAINING_SIZE)
 
     def loadTrainLabelData_buttonFunction(self):
         f_path = QFileDialog.getOpenFileName(self)
-        with open(f_path + '/train-labels-idx1-ubyte.gz', 'rb') as f
-        train_labels = extract_labels(f)
+        path = f_path[0]
+        print(path)
+        with open(path, 'rb') as f:
+            train_labels = extract_labels(f)
+        
 
     def loadTestImageData_buttonFunction(self):
         f_path = QFileDialog.getOpenFileName(self)
-        with open(f_path + '/t10k-images-idx3-ubyte.gz', 'rb') as f
-        test_images = extract_images(f)
+        path = f_path[0]
+        print(path)
+        with open(path, 'rb') as f:
+            test_images = extract_images(f)
+        TEST_SIZE = len(test_images)
+        print(TEST_SIZE)
 
     def loadTestLabelData_buttonFunction(self):
         f_path = QFileDialog.getOpenFileName(self)
-        with open(f_path + '/t10k-labels-idx1-ubyte.gz', 'rb') as f
-        test_labels = extract_labels(f)
+        path = f_path[0]
+        print(path)
+        with open(path, 'rb') as f:
+            test_labels = extract_labels(f)
 
 
 
