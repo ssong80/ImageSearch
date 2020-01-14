@@ -4,19 +4,33 @@ from PyQt5 import uic
 from PyQt5.QtGui import *
 import PyQt5
 
+from tensorflow.contrib.learn.python.learn.datasets.mnist import extract_images, extract_labels
+
 UI_Name = "App.ui"
 
 form_class = uic.loadUiType(UI_Name)[0]
 
 _image_data = 0
+_train_images
+_train_labels
+_test_images
+_test_labels
 
 class WindowClass(QMainWindow, form_class):
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.pushButton_OpenFolder.clicked.connect(self.buttonFunction)
+        self.pushButton_LoadImage.clicked.connect(self.buttonFunction)
+        self.pushButton_LoadTrainImageData.clicked.connect(self.loadTrainImageData_buttonFunction)
+        self.pushButton_LoadTrainLabelData.clicked.connect(self.loadTrainLabelData_buttonFunction)
+        self.pushButton_LoadTestImageData.clicked.connect(self.loadTestImageData_buttonFunction)
+        self.pushButton_LoadTestLabelData.clicked.connect(self.loadTestLabelData_buttonFunction)
         self.image_data = _image_data
+        self.train_images = _train_images
+        self.train_labels = _train_labels
+        self.test_images = _test_images
+        self.test_labels = _test_labels
 
     def buttonFunction(self):
         f_path = QFileDialog.getOpenFileName(self)
@@ -33,6 +47,28 @@ class WindowClass(QMainWindow, form_class):
         scene = QGraphicsScene()
         scene.addPixmap(image)
         self.graphicsView_LoadImage.setScene(scene)
+
+    def loadTrainImageData_buttonFunction(self):
+        f_path = QFileDialog.getOpenFileName(self)
+        with open(f_path + '/train-images-idx3-ubyte.gz', 'rb') as f
+        train_images = extract_images(f)
+
+    def loadTrainLabelData_buttonFunction(self):
+        f_path = QFileDialog.getOpenFileName(self)
+        with open(f_path + '/train-labels-idx1-ubyte.gz', 'rb') as f
+        train_labels = extract_labels(f)
+
+    def loadTestImageData_buttonFunction(self):
+        f_path = QFileDialog.getOpenFileName(self)
+        with open(f_path + '/t10k-images-idx3-ubyte.gz', 'rb') as f
+        test_images = extract_images(f)
+
+    def loadTestLabelData_buttonFunction(self):
+        f_path = QFileDialog.getOpenFileName(self)
+        with open(f_path + '/t10k-labels-idx1-ubyte.gz', 'rb') as f
+        test_labels = extract_labels(f)
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
