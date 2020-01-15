@@ -117,7 +117,11 @@ class WindowClass(QMainWindow, form_class):
         print('epoch : {0}'.format(num_epoch))
 
         image_validation = train_images[-validation_size:]
-        image_train = train_images[:validation_size]   
+        image_train = train_images[:validation_size]
+
+        image_train = np.expand_dims(image_train, axis=-1)
+        image_validation = np.expand_dims(image_validation, axis=-1)
+        image_test = np.expand_dims(test_images, axis=-1)
 
 
 
